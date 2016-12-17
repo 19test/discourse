@@ -4,7 +4,7 @@
 #
 Vagrant.configure("2") do |config|
   config.vm.box     = 'discourse-16.04'
-  config.vm.box_url = "https://www.dropbox.com/s/2132770g1e05c6d/discourse.box?dl=1"
+  config.vm.box_url = "file:///home/seyyah/works/discourse/discourse.box"
 
   # Make this VM reachable on the host network as well, so that other
   # VM's running other browsers can access our dev server.
@@ -39,8 +39,8 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
-  config.vm.network :forwarded_port, guest: 3000, host: 4000
-  config.vm.network :forwarded_port, guest: 1080, host: 4080 # Mailcatcher
+  config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.network :forwarded_port, guest: 1080, host: 3080 # Mailcatcher
 
   nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
   config.vm.synced_folder ".", "/vagrant", id: "vagrant-root"
